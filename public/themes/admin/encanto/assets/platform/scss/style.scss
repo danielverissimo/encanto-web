@@ -1,0 +1,765 @@
+/**
+ * Part of the Platform application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the Cartalyst PSL License.
+ *
+ * This source file is subject to the Cartalyst PSL License that is
+ * bundled with this package in the license.txt file.
+ *
+ * @package    Platform
+ * @version    2.0.0
+ * @author     Cartalyst LLC
+ * @license    Cartalyst PSL
+ * @copyright  (c) 2011-2014, Cartalyst LLC
+ * @link       http://cartalyst.com
+*/
+
+@import "alerts.scss";
+
+// Variables ==================================================================
+
+$body:							#f7f7f7;
+$body-header:					#ffffff;
+$body-footer:					#ffffff;
+
+$base:							#f7f7f7;
+
+$sidebar: 						#ffffff;
+$sidebar-dark: 					darken($sidebar, 10%);
+$sidebar-light: 				lighten($sidebar, 10%);
+
+$page: 							#f7f7f7;
+$page-dark: 					darken($page, 45%);
+$page-light: 					lighten($page, 15%);
+
+$panel: 						#ffffff;
+$panel-dark: 					darken($panel, 45%);
+$panel-light: 					lighten($panel, 15%);
+
+$text:							#74777b;
+$text-dark: 					darken($text, 45%);
+$text-light: 					lighten($text, 15%);
+
+$border:						#dddddd;
+
+$brand-primary:					#428bca;
+$brand-success:					#5cb85c;
+$brand-info:					#5bc0de;
+$brand-warning:					#f0ad4e;
+$brand-danger:					#d9534f;
+
+// z-indexing =================================================================
+.popover {            z-index:1600; }
+.modal {              z-index:1500; }
+.alert-box {          z-index:1400; }
+.pace-progress {      z-index:1300; }
+.sidebar {            z-index:1200; }
+.page .cover {        z-index:1100; }
+.redactor-box {       z-index:1000; }
+
+// General ====================================================================
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+a:hover, a:active { outline: none; }
+
+html,
+body {
+	height: 100%;
+}
+
+// Bootstrap Overrides ========================================================
+
+.modal {
+
+	&-body {
+		padding:32px 16px;
+	}
+
+	&-footer {
+		text-align: center;
+	}
+}
+
+.navbar {
+	background: $page-light;
+	border: none;
+
+	&-nav,
+	&-form {
+		margin:8px 0;
+	}
+
+	&-nav > li > button {
+		margin-top:0;
+	}
+
+	&-nav > li > a {
+		padding: 6px 10px;
+		margin:0 4px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+
+		&:hover {
+			border: 1px solid #ddd;
+		}
+
+		i + span {
+			display: inline-block;
+			margin-left:8px;
+		}
+	}
+
+	&-nav > li.primary > a:hover,
+	&-nav > li.primary > a:focus {
+		color: $brand-primary;
+		background-color:transparent;
+		border-color:$brand-primary;
+	}
+
+	&-brand {
+		padding-top: 16px;
+
+		small {
+			font-weight: 300;
+		}
+	}
+}
+
+.nav {
+
+	&-tabs {
+		margin-bottom: 0;
+	}
+}
+
+.dropdown-menu li:hover {
+	cursor: pointer;
+}
+
+.tab-content {
+	padding: 25px;
+	margin-bottom: 25px;
+}
+
+.tab-content.tab-bordered {
+	border: 1px solid #ddd;
+	border-top: none;
+}
+
+[data-toggle="popover"], [data-toggle="tooltip"] {
+	cursor: pointer;
+}
+
+code {
+	padding:8px;
+	color:$text;
+	background:#f7f7f7;
+}
+
+// Alerts =====================================================================
+.alert-box {
+	position: absolute;
+	left:240px;
+	right:0;
+	background: $brand-primary;
+	color: #fff;
+}
+
+.alert-effect-slidetop {
+	box-shadow: inset 64px 0 $brand-primary;
+}
+
+// Loader =====================================================================
+.pace {
+	-webkit-pointer-events: none;
+	pointer-events: none;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.pace-inactive {
+	display: none;
+}
+
+.pace .pace-progress {
+	background: $brand-primary;
+	position: fixed;
+	top: 0;
+	right: 100%;
+	width: 240px;
+	height: 3px;
+}
+
+// Forms ======================================================================
+form .help-block,
+form .error-block,
+form .parsley-help-block {
+	display: block;
+	margin-top:8px;
+	font-style: italic;
+}
+
+form .error-block,
+form .parsley-help-block {
+	color: $brand-danger;
+}
+
+form fieldset {
+	margin-bottom:16px;
+}
+
+form fieldset legend {
+	padding:8px 0;
+}
+
+form .form-group {
+	border-bottom: 1px dashed lighten($border, 5%);
+	padding-bottom:4px;
+}
+
+form label .popover-content {
+	font-weight: normal;
+	width: 276px;
+
+}
+
+// Base =======================================================================
+.base {
+	background-color: $base;
+	padding-left: 240px;
+	transition: all .4s ease 0s;
+	height: 100%;
+
+	&.base--collapse {
+		padding-left:0;
+	}
+
+	&.base--collapse .sidebar {
+		left:-248px;
+
+		.navigation--sidebar {
+			visibility: hidden;
+		}
+	}
+}
+
+// Sidebar ====================================================================
+.sidebar {
+	position: fixed;
+	left: 0;
+	top:0;
+	bottom:0;
+	height: 100%;
+	margin-left: 0;
+	width: 240px;
+	transition: all .4s ease 0s;
+	overflow: hidden;
+	background: $sidebar;
+	color: $text;
+	border-right:1px solid $sidebar-dark;
+
+	.sidebar__brand {
+
+		figure {
+			width:100%;
+			margin: 0 auto;
+			text-align: center;
+			padding:8px 0;
+		}
+
+		figure img {
+			width: 80px;
+			height: 80px;
+			display: inline-block;
+			vertical-align: middle;
+			margin:0;
+		}
+
+		figcaption {
+			font-size:24px;
+			font-weight: bold;
+			text-transform: uppercase;
+
+			span {
+				font-size:.5em;
+				color:$text-light;
+				display: block;
+				padding:4px 0;
+				font-weight: normal;
+				letter-spacing:1px;
+			}
+		}
+	}
+
+	.sidebar__copyright {
+		border-top:1px solid $sidebar-dark;
+		text-align: center;
+		padding:24px 0 0 0;
+		font-size:10px;
+	}
+}
+
+// Pages ============================================================+=========
+.page {
+	padding:0;
+	margin:0;
+	background:$page;
+
+	.cover {
+		position: absolute;
+		left: 0px;
+		right:0;
+		top: 0px;
+		bottom:0;
+		width: 100%;
+		height: 100%;
+		background:$page;
+
+		span {
+			position: absolute;
+			top:16px;
+			right:32px;
+			color: $page-dark;
+			letter-spacing:2px;
+			text-transform: uppercase;
+			font-size:10px;
+		}
+	}
+
+	.page__header {
+		padding-top:4px;
+		padding-bottom:4px;
+		margin-bottom:16px;
+	}
+
+	.page__content {
+		margin:0 16px;
+		padding:0;
+	}
+}
+
+// Panels ====================================================================
+.panel {
+
+	&.panel-default {
+
+		.panel-heading {
+			background: $panel;
+		}
+
+		.panel-heading {
+			border-bottom:1px solid $border;
+
+			.navbar {
+				margin-bottom:0;
+			}
+
+			.navbar-form {
+				margin-right:-30px;
+			}
+
+			.btn-navbar-cancel {
+				background-color: transparent;
+				border-color: transparent;
+				margin-top:8px;
+				margin-right:8px;
+			}
+			.btn-navbar-cancel:hover,
+			.btn-navbar-cancel:focus,
+			.btn-navbar-cancel:active,
+			.btn-navbar-cancel.active {
+				background-color: transparent;
+				border-color: $border;
+			}
+		}
+
+		.panel-heading .panel-close:after {
+			font-family: 'FontAwesome';
+			content: "\f205";
+			float: right;
+		}
+		.panel-heading.collapsed .panel-close:after {
+			content: "\f204";
+		}
+
+		.panel-close {
+			display: inline-block;
+			margin-top:4px;
+		}
+
+		.panel-footer {
+			padding-top:8px;
+			background-color: $panel;
+
+			.pages {
+				padding:8px 0;
+			}
+
+			.pagination {
+				margin-top:0;
+				margin-bottom:0;
+			}
+		}
+	}
+
+	&.panel-tabs {
+
+		.panel-heading,
+		.panel-footer {
+
+			.container-fluid {
+				padding-left:0;
+				padding-right:0;
+			}
+
+			.navbar {
+				margin-bottom:0;
+			}
+
+			.navbar-right {
+				margin-right:-15px;
+			}
+
+			.nav-tabs{
+				border-bottom: none;
+			}
+
+			.nav-justified{
+				margin-bottom: -1px;
+			}
+
+		}
+
+		.panel-heading {
+			border-bottom:none;
+		}
+
+		.panel-body {
+			margin:0;
+			padding:0;
+
+			.nav-tabs li:first-child {
+				padding-left:15px;
+			}
+		}
+	}
+
+	&.panel-grid {
+
+		.panel-body {
+			margin:-1px;
+			padding:0 4px;
+
+			border-bottom:1px solid $border;
+
+			.btn {
+				margin:6px 0;
+			}
+
+		}
+
+		.table-responsive {
+			border-top:none;
+		}
+
+	}
+
+	&.panel-help {
+
+		.panel-heading,
+		.panel-body,
+		.panel-footer {
+			border:none;
+			padding-left:15px;
+			padding-right:15px;
+		}
+
+		.panel-heading {
+			color: $text;
+		}
+
+		.panel-body {
+			padding:16px 32px;
+
+			.manual {
+				display: inline-block;
+				padding-left:8px;
+			}
+
+		}
+
+		.panel-title {
+			span {
+				cursor: pointer;
+			}
+		}
+	}
+
+	&.panel-permissions {
+		margin:6px 0;
+
+		.panel-heading,
+		.panel-body,
+		.panel-footer {
+			border:none;
+			padding-left:15px;
+			padding-right:15px;
+		}
+
+		.panel-heading {
+			color: $text;
+			cursor: pointer;
+			background: #f7f7f7;
+
+			h4 {
+				padding:4px 8px;
+			}
+		}
+
+		.panel-body {
+			padding:16px 32px;
+
+			.permission {
+
+				padding:6px 0 4px 0;
+
+			}
+
+		}
+
+		.panel-title {
+			span {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+// Help =======================================================================
+.help {
+
+	h3 {
+		padding-bottom:16px;
+	}
+
+	p:first-of-type {
+		font-size:1.5em;
+		line-height: 1.6em;
+		font-weight: 300;
+	}
+
+
+	p {
+		padding-bottom:16px;
+		font-size: 1.1em;
+		line-height: 1.3em;
+	}
+
+}
+
+// Navigation =================================================================
+.navigation {
+
+	&.navigation--account {
+
+		.fa {
+			font-size:18px;
+		}
+	}
+	&.navigation--header {
+
+		ul {
+			padding:0;
+			list-style: none;
+			display: inline-block;
+		}
+
+		ul li span {
+			display: none;
+		}
+
+		.fa {
+			font-size:18px;
+		}
+
+		.toggle-sidebar {
+			cursor: pointer;
+		}
+	}
+
+	&.navigation--sidebar {
+
+		border-top:1px solid $sidebar-dark;
+
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+
+			li {
+				display: block;
+				border-top:1px solid $sidebar-dark;
+
+
+				i,span {
+					display: inline-block;
+					min-width:36px;
+					text-align: center;
+					line-height: 36px;
+				}
+
+				i {
+					//border-left:4px solid red;
+					//margin-left:4px;
+				}
+			}
+
+			a {
+				display:block;
+				color:$text;
+
+				&:hover,
+				&:focus,
+				&:active {
+					outline: none;
+					color: $brand-primary;
+					text-decoration: none;
+				}
+			}
+
+			ul {
+				li {
+					i {
+						margin-left:16px;
+					}
+
+				}
+
+				a {
+					background-color: $sidebar-light;
+
+					&:hover,
+					&:focus,
+					&:active {
+						background-color: lighten($sidebar-light, 5%);
+					}
+				}
+			}
+		}
+
+		.fa-item-icon {
+			font-family: 'FontAwesome';
+			float: right;
+			padding-right:4px;
+			color: $text;
+		}
+
+		.item.dropdown a > .fa-item-icon::after {
+
+			content: "\f0da";
+
+		}
+		.item.dropdown.active a > .fa-item-icon::after {
+			content: "\f0d8";
+		}
+
+		.item {
+
+			&.active:not(.dropdown) {
+				border-bottom:4px solid $brand-primary;
+				a {
+					color:$brand-primary;
+				}
+			}
+		}
+	}
+}
+
+/* Data Grid
+================================================== */
+#data-grid {
+
+	thead th {
+		border-bottom:0;
+
+		&:first-child {
+			text-align: center;
+		}
+		&.sortable {
+			cursor: pointer;
+			*cursor: hand;
+			position: relative;
+			&:before {
+				content: '\f0dc';
+				font-family: FontAwesome;
+				text-decoration: inherit;
+				position: absolute;
+				top: 8px;
+				right: 8px;
+			}
+			&.asc:before { content: '\f0dd'; }
+			&.desc:before { content: '\f0de'; }
+		}
+	}
+	tbody td {
+
+		vertical-align: middle;
+
+		&:first-child {
+			text-align: center;
+		}
+
+		&.no-results {
+			padding:32px 0;
+			vertical-align: middle;
+		}
+
+	}
+}
+
+/* Call Outs
+================================================== */
+.callout {
+
+	border-left:4px solid $brand-warning;
+	padding:8px 16px;
+
+	p {
+		font-style: italic;
+		font-size:1em;
+		line-height: 1.6em;
+	}
+}
+
+// Responsive =================================================================
+
+@media (max-width:767px) {
+
+	.base {
+
+		padding-left:0px;
+
+		.sidebar {
+			left:-248px;
+		}
+
+		&.base--collapse {
+			padding-left:240px;
+		}
+
+		&.base--collapse .sidebar {
+			left:0;
+
+			.navigation--sidebar {
+				visibility:visible;
+			}
+		}
+	}
+}

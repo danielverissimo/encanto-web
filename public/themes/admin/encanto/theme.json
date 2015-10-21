@@ -1,0 +1,7 @@
+{
+	"name":        "Encanto Admin Theme",
+	"slug":        "admin::encanto",
+	"description": "The Encanto admin theme.",
+	"author":      "Mobile Inn",
+	"version":     "1.0"
+}
